@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# power-profiles-daemon implementation:
+# needs package power-profiles-daemon installed and the service set up and running running
+
+# script to show current power profile
+current_profile=$(/usr/bin/powerprofilesctl get)
+echo "$current_profile"

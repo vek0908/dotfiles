@@ -1,0 +1,58 @@
+#############################
+##### Global properties #####
+#############################
+
+command=$SCRIPT_DIR/$BLOCK_NAME
+markup=pango
+separator=false
+#separator_block_width=0
+#align=center
+#border=1
+#border_top=0
+#border_left=1
+#border_right=0
+
+#####################
+##### Blocklets #####
+#####################
+
+[battery]
+command=$SCRIPT_DIR/battery
+interval=900
+label=<span size="large" foreground="#a6da95">󰂅 </span>
+#BAT_NUMBER=0
+
+[ppd-status]
+command=$SCRIPT_DIR/ppd_status
+interval=10
+label=<span size="large" foreground="#c6a0f6">󰐥 </span>
+
+[cpu_usage]
+command=$SCRIPT_DIR/cpu_usage
+interval=10
+label=<span size="large" foreground="#ed8796">󰘚 </span>
+#min_width=CPU: 100.00%
+#T_WARN=50
+#T_CRIT=80
+#DECIMALS=2
+COLOR_NORMAL=#cad3f5
+COLOR_WARN=#c6a0f6
+COLOR_CRIT=#eed49f
+
+[memory]
+command=$SCRIPT_DIR/memory
+interval=20
+label=<span size="large" foreground="#91d7e3">󰍛 </span>
+
+[date]
+command=date '+%Y-%m-%d'
+interval=60
+label=<span size="large" foreground="#f5bde6"> </span>
+
+[time]
+command=date '+%H:%M'
+interval=60
+label=<span size="large" foreground="#f5a97f">󱑃 </span>
+
+[sep]
+full_text=<span size="large" foreground="#8aadf4">󰇝</span>

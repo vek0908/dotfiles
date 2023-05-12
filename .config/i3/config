@@ -1,0 +1,382 @@
+# #######################
+# ##### INFORMATION #####
+# #######################
+
+# versions
+# i3-wm - 4.22-4
+# i3-blocks - 1.5-3
+# i3-status - 2.14-1
+# i3-lock - 2.14.1-1
+
+# #################
+# ##### START #####
+# #################
+
+# line to detect the format of configuration file(s) (should remain commented)
+# i3 config file (v4)
+
+# #####################
+# ##### VARIABLES #####
+# #####################
+
+# modkey modifier
+set $mod Mod4
+
+# workspaces
+set $ws1 "1:"
+set $ws2 "2:󱧶"
+set $ws3 "3:"
+set $ws4 "4:󱞁"
+set $ws5 "5:󰒔"
+set $ws6 "6:"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# colors (catppuccin - macchiato flavour)
+set $background0     #363a4f
+set $foreground0     #cad3f5
+set $foreground1     #181926
+set $distinct0       #8aadf4
+set $alert0          #eed49f
+
+# colors for statusline (put here just for convinience)
+set $accent0         #a6da95
+set $accent1         #ed8796
+set $accent2         #91d7e3
+set $accent3         #f5bde6
+set $accent4         #f5a97f
+set $accent5         #c6a0f6
+
+# ###################
+# ##### GENERAL #####
+# ###################
+
+## Basic
+
+# restart i3 inplace (can be used to update i3 after editing the configuration)
+bindsym $mod+Shift+r restart
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+## Fonts and colors
+
+# font (is used for the bar as well untill set otherwise)
+font pango:Mononoki Nerd Font 10
+
+# colors for containers
+#                            border         bg               txt              indicator        child_border
+client.focused               $distinct0     $distinct0       $foreground1     $background0     $distinct0
+client.unfocused             $distinct0     $background0     $foreground0     $background0     $background0
+client.focused_inactive      $distinct0     $background0     $foreground0     $background0     $background0
+client.focused_tab_title     $distinct0     $distinct0       $foreground1     $background0     $background0
+client.urgent                $alert0        $alert0          $foreground1     $background0     $alert0
+
+## Autostart services and applications
+
+# setup for displays (ARandR)
+exec --no-startup-id ~/.screenlayout/monitor.sh
+
+# authentification
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# autostart application
+exec --no-startup-id dex --autostart --environment i3
+
+# notifications
+exec --no-startup-id dunst
+
+# wallpapers
+exec --no-startup-id ~/.fehbg &
+
+# powersavings for display
+exec --no-startup-id xset s 480 dpms 600 600 600
+
+## Bar and status
+
+bar {
+
+position top
+font pango:Mononoki Nerd Font Bold 10
+workspace_min_width 30
+#strip_workspace_name yes
+strip_workspace_numbers yes
+status_command SCRIPT_DIR=~/.config/i3/i3blocks/blocklets i3blocks -c ~/.config/i3/i3blocks/config
+padding 2 0
+#tray_padding 4
+#separator_symbol "󰇝"
+
+colors {
+
+background  $background0
+statusline  $foreground0
+separator   $foreground0
+
+#                  border           bg               txt
+focused_workspace  $distinct0       $distinct0       $foreground1
+inactive_workspace $background0     $background0     $foreground0
+urgent_workspace   $distinct0       $background0     $foreground0
+binding_mode       $alert0          $alert0          $foreground1
+}
+
+}
+
+# #################
+# ##### MODES #####
+# #################
+
+# resize
+set $mode_resize resizing
+
+bindsym $mod+r mode "$mode_resize"
+
+mode "$mode_resize" {
+
+bindsym h resize shrink width 2 px or 2 ppt
+bindsym j resize grow height 2 px or 2 ppt
+bindsym k resize shrink height 2 px or 2 ppt
+bindsym l resize grow width 2 px or 2 ppt
+
+# arrow keys as alternatives
+bindsym Left resize shrink width 2 px or 2 ppt
+bindsym Down resize grow height 2 px or 2 ppt
+bindsym Up resize shrink height 2 px or 2 ppt
+bindsym Right resize grow width 2 px or 2 ppt
+
+bindsym Escape mode "default"
+
+}
+
+# applications
+set $mode_apps applications
+
+bindsym $mod+a mode "$mode_apps"
+
+mode "$mode_apps" {
+
+bindsym t exec xfce4-terminal, mode "default"
+bindsym Shift+t exec kitty, mode "default"
+bindsym f exec thunar, mode "default"
+bindsym e exec emacs, mode "default"
+bindsym b exec firefox, mode "default"
+
+bindsym Escape mode "default"
+
+}
+
+# power management (relies on ppd package)
+set $mode_power (s)power-saver (b)balanced (p)performance
+
+bindsym $mod+Shift+p mode "$mode_power"
+
+mode "$mode_power" {
+
+bindsym s exec --no-startup-id powerprofilesctl set power-saver, mode "default"
+bindsym b exec --no-startup-id powerprofilesctl set balanced, mode "default"
+bindsym p exec --no-startup-id powerprofilesctl set performance, mode "default"
+
+bindsym Escape mode "default"
+
+}
+
+# system (relies on systemd)
+set $mode_system (l)lock (e)logout (s)suspend (h)hibernate (r)reboot (p)poweroff
+
+bindsym $mod+Shift+s mode "$mode_system"
+
+mode "$mode_system" {
+
+bindsym l exec --no-startup-id i3lock, mode "default"
+bindsym e exec --no-startup-id i3-msg exit, mode "default"
+bindsym s exec --no-startup-id systemctl suspend, mode "default"
+bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+bindsym r exec --no-startup-id systemctl reboot, mode "default"
+bindsym p exec --no-startup-id systemctl poweroff, mode "default"
+
+bindsym Escape mode "default"
+
+}
+
+# ######################
+# ##### LAYOUT #########
+# ######################
+
+## General layout related settings
+
+# change layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+
+# split in horizontal orientation
+bindsym $mod+x split h
+
+# split in vertical orientation
+bindsym $mod+y split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# floating modifier (to use with mouse)
+floating_modifier $mod
+
+## Edges
+
+# title
+title_align center
+for_window [all] title_window_icon padding 4
+
+# borders
+default_border pixel 2
+default_floating_border pixel 2
+#smart_borders on
+
+# gaps
+gaps inner 6
+#gaps outer 5
+#smart_gaps on
+
+## Navigation
+
+# iterate between workspaces
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
+# switch to workspace
+bindsym $mod+1 workspace  $ws1
+bindsym $mod+2 workspace  $ws2
+bindsym $mod+3 workspace  $ws3
+bindsym $mod+4 workspace  $ws4
+bindsym $mod+5 workspace  $ws5
+bindsym $mod+6 workspace  $ws6
+bindsym $mod+7 workspace  $ws7
+bindsym $mod+8 workspace  $ws8
+bindsym $mod+9 workspace  $ws9
+bindsym $mod+0 workspace  $ws10
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# arrow keys as alternatives
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# toggle to scratchpad window
+bindsym $mod+w scratchpad show
+
+## Actions
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace  $ws1
+bindsym $mod+Shift+2 move container to workspace  $ws2
+bindsym $mod+Shift+3 move container to workspace  $ws3
+bindsym $mod+Shift+4 move container to workspace  $ws4
+bindsym $mod+Shift+5 move container to workspace  $ws5
+bindsym $mod+Shift+6 move container to workspace  $ws6
+bindsym $mod+Shift+7 move container to workspace  $ws7
+bindsym $mod+Shift+8 move container to workspace  $ws8
+bindsym $mod+Shift+9 move container to workspace  $ws9
+bindsym $mod+Shift+0 move container to workspace  $ws10
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# arrow keys as alternatives
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# move focused window to scratchpad
+bindsym $mod+Shift+w move scratchpad
+
+# close focused window
+bindsym $mod+q kill
+
+# #################
+# ##### RULES #####
+# #################
+
+## workspaces and applications
+
+# bind program to workspace (using classnames which can be defined with xprop)
+assign [class="Xfce4-terminal"] $ws1
+assign [class="kitty"] $ws1
+assign [class="Thunar"] $ws2
+assign [class="Emacs"] $ws3
+assign [class="Geany"] $ws4
+assign [class="Xed"] $ws4
+assign [class="Meld"] $ws5
+assign [class="firefox"] $ws6
+
+# automatic set focus new window if it opens on another workspace than the current
+for_window [class=Xfce4-terminal] focus
+for_window [class=kitty] focus
+for_window [class=Thunar] focus
+for_window [class=Emacs] focus
+for_window [class=Geany] focus
+for_window [class=Xed] focus
+for_window [class=Meld] focus
+for_window [class=firefox] focus
+
+## floating rules
+
+# set floating for apps that need it
+for_window [class="Yad" instance="yad"] floating enable
+for_window [class="Galculator" instance="galculator"] floating enable
+for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
+
+# set floating for special apps
+for_window [class="Xsane" instance="xsane"] floating enable
+for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
+for_window [class="qt5ct" instance="qt5ct"] floating enable
+for_window [window_role="About"] floating enable
+
+# #####################
+# ##### SHORTCUTS #####
+# #####################
+
+## Prompt (rofi)
+
+# window switcher
+bindsym $mod+Shift+Return exec rofi -show window \
+		-config ~/.config/rofi/rofidmenu.rasi
+
+# applauncher
+bindsym $mod+Return exec rofi -modi drun -show drun \
+		-config ~/.config/rofi/rofidmenu.rasi
+
+## Scripts
+
+# keybinding in fancy rofi (interactive, automated)
+bindsym F11 exec ~/.config/i3/scripts/keyhint-2
+
+# #####################
+# ##### Todo list #####
+# #####################
+
+## Figure out the most efficient way to setup screen-locker and screensaver
+
+# possible utilities and references:
+
+# 1) i3lock - if used without systemd utilities (such as xss-lock): && sleep 1 parametr should be added in order to prevent race conditions with suspend
+#           - also i3lock status should be somehow written to memory or the system would wake up without lock enabled
+# 2) xss-lock
+# 3) xset
+
