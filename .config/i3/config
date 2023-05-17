@@ -2,15 +2,15 @@
 # ##### INFORMATION #####
 # #######################
 
-# versions
+# Versions of the software for the moment of modifying the particular configuration
 # i3-wm - 4.22-4
 # i3-blocks - 1.5-3
 # i3-status - 2.14-1
 # i3-lock - 2.14.1-1
 
-# #################
-# ##### START #####
-# #################
+# #########################
+# ##### CONFIGURATION #####
+# #########################
 
 # line to detect the format of configuration file(s) (should remain commented)
 # i3 config file (v4)
@@ -99,7 +99,7 @@ exec --no-startup-id xset s 480 dpms 600 600 600
 bar {
 
 position top
-font pango:Mononoki Nerd Font Bold 10
+font pango:Mononoki Nerd Font Bold 8
 workspace_min_width 30
 #strip_workspace_name yes
 strip_workspace_numbers yes
@@ -134,16 +134,16 @@ bindsym $mod+r mode "$mode_resize"
 
 mode "$mode_resize" {
 
-bindsym h resize shrink width 2 px or 2 ppt
-bindsym j resize grow height 2 px or 2 ppt
-bindsym k resize shrink height 2 px or 2 ppt
-bindsym l resize grow width 2 px or 2 ppt
+bindsym h resize shrink width 1 px or 1 ppt
+bindsym j resize grow height 1 px or 1 ppt
+bindsym k resize shrink height 1 px or 1 ppt
+bindsym l resize grow width 1 px or 1 ppt
 
 # arrow keys as alternatives
-bindsym Left resize shrink width 2 px or 2 ppt
-bindsym Down resize grow height 2 px or 2 ppt
-bindsym Up resize shrink height 2 px or 2 ppt
-bindsym Right resize grow width 2 px or 2 ppt
+bindsym Left resize shrink width 1 px or 1 ppt
+bindsym Down resize grow height 1 px or 1 ppt
+bindsym Up resize shrink height 1 px or 1 ppt
+bindsym Right resize grow width 1 px or 1 ppt
 
 bindsym Escape mode "default"
 
@@ -236,7 +236,7 @@ default_floating_border pixel 2
 # gaps
 gaps inner 6
 #gaps outer 5
-#smart_gaps on
+smart_gaps on
 
 ## Navigation
 
@@ -365,7 +365,7 @@ bindsym $mod+Return exec rofi -modi drun -show drun \
 ## Scripts
 
 # keybinding in fancy rofi (interactive, automated)
-bindsym F11 exec ~/.config/i3/scripts/keyhint-2
+#bindsym F11 exec ~/.config/i3/scripts/keyhint-2
 
 # #####################
 # ##### Todo list #####
@@ -375,8 +375,9 @@ bindsym F11 exec ~/.config/i3/scripts/keyhint-2
 
 # possible utilities and references:
 
-# 1) i3lock - if used without systemd utilities (such as xss-lock): && sleep 1 parametr should be added in order to prevent race conditions with suspend
-#           - also i3lock status should be somehow written to memory or the system would wake up without lock enabled
+# 1) i3lock
+# - if used without systemd utilities (such as xss-lock): && sleep 1 parametr should be added in order to prevent race conditions with suspend
+# - also i3lock status should be somehow written to memory or the system would wake up without lock enabled
 # 2) xss-lock
 # 3) xset
 
