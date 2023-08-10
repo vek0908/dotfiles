@@ -27,8 +27,5 @@ vim.o.autoindent = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Completion 
-vim.o.completeopt = 'menuone, noselect'
-
 -- Mouse support
 vim.o.mouse = 'a'
