@@ -13,23 +13,22 @@ end
 local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
-  -- Package manager
-  use 'wbthomason/packer.nvim'
-  -- My plugins here
-  -- use 'foo1/bar1.nvim'
-  -- use 'foo2/bar2.nvim'
 
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
+  -- Plugin manager
+  use 'wbthomason/packer.nvim'
+
+  -- Lualine
+  use {
+  'nvim-lualine/lualine.nvim',
+  requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
+
+  -- Catppuccin color theme
+  use { "catppuccin/nvim", as = "catppuccin" }
+
+  -- Should be placed after all plugins
   if packer_bootstrap then
     require('packer').sync()
   end
 end)
 
--- Command to automatically recompile packer whenever plugins.lua file is updated 
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])

@@ -1,4 +1,4 @@
 -- General settings module
-require("general")
+require("user.general")
 -- Package management module
-require("plugins")
+require("user.plugins")
