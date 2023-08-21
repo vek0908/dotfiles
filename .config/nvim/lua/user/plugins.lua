@@ -18,11 +18,8 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   -- Lualine
-  use {
-  'nvim-lualine/lualine.nvim',
-  requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-  }
-
+  use 'nvim-lualine/lualine.nvim'
+  
   -- Catppuccin color theme
   use { "catppuccin/nvim", as = "catppuccin" }
 

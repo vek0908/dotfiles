@@ -1,0 +1,4 @@
+# Patterns to ignore for my dotfiles repository
+
+# Neovim => files compiled by a plugin manager
+.config/nvim/plugin/
