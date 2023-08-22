@@ -1,4 +1,5 @@
-# Patterns to ignore for my dotfiles repository
+# Kitty: automatically created backup of the configuration file
+.config/kitty/kitty.conf.bak
 
-# Neovim => files compiled by a plugin manager
+# Neovim: files compiled by a plugin manager
 .config/nvim/plugin/
