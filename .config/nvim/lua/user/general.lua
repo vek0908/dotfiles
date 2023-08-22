@@ -19,7 +19,7 @@ vim.o.wrap = false
 vim.o.scrolloff = 5
 vim.o.sidescrolloff = 5
 
--- Case sensivity (NOTE: Ignerecase and smartcase are normally used together)
+-- Case sensitivity (NOTE: Ignerecase and smartcase are normally used together)
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
