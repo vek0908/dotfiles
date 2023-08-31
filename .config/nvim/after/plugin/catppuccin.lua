@@ -1,5 +1,5 @@
 require("catppuccin").setup({
-    flavour = "mocha", -- latte, frappe, macchiato, mocha
+    flavour = "macchiato", -- latte, frappe, macchiato, mocha
     background = { -- :h background
         light = "latte",
         dark = "mocha",
@@ -36,12 +36,14 @@ require("catppuccin").setup({
         gitsigns = true,
         nvimtree = true,
         treesitter = false,
-        semantic_tokens = false,
         notify = false,
         mini = false,
+        semantic_tokens = false,
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
     },
 })
 
 -- Command to use the theme on startup (not a default one from the original repository)
 vim.cmd("colorscheme catppuccin")
+
+

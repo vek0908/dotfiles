@@ -1,3 +1,10 @@
+-- Disabling netrw for nvim-tree plugin
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- Disabling auto-setup for barbar
+vim.g.barbar_auto_setup = false
+
 -- Colors (NOTE: Make sure that terminal supports it)
 vim.o.termguicolors = true
 
@@ -28,3 +35,4 @@ vim.o.clipboard = "unnamedplus"
 
 -- Mouse support
 vim.o.mouse = 'a'
+

@@ -17,11 +17,23 @@ return require('packer').startup(function(use)
   -- Plugin manager
   use 'wbthomason/packer.nvim'
 
+  -- Nvim tree
+  use { 'nvim-tree/nvim-tree.lua', tag = "compat-nvim-0.7" }
+
   -- Lualine
-  use 'nvim-lualine/lualine.nvim'
-  
+  use { 'nvim-lualine/lualine.nvim', commit = "45e27ca739c7be6c49e5496d14fcf45a303c3a63" }
+
+  -- Barbar
+  use { 'romgrk/barbar.nvim', tag = "v1.7.0" }
+
+  -- Gitsigns
+  use { 'lewis6991/gitsigns.nvim', tag = "v0.6" }
+
+  -- Icons
+  use { 'nvim-tree/nvim-web-devicons', commit = "9ab9b0b894b2388a9dbcdee5f00ce72e25d85bf9" }
+
   -- Catppuccin color theme
-  use { "catppuccin/nvim", as = "catppuccin" }
+  use { "catppuccin/nvim", tag = "v1.3.0", as = "catppuccin" }
 
   -- Should be placed after all plugins
   if packer_bootstrap then
