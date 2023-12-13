@@ -23,8 +23,8 @@ return require('packer').startup(function(use)
   -- Lualine
   use { 'nvim-lualine/lualine.nvim', commit = "45e27ca739c7be6c49e5496d14fcf45a303c3a63" }
 
-  -- Barbar
-  use { 'romgrk/barbar.nvim', tag = "v1.7.0" }
+  -- Bufferline
+  use { 'akinsho/bufferline.nvim', tag = "v3.0.0" }
 
   -- Gitsigns
   use { 'lewis6991/gitsigns.nvim', tag = "v0.6" }
