@@ -64,7 +64,7 @@ bindsym $mod+Shift+c reload
 ## Fonts and colors
 
 # font (is used for the bar as well untill set otherwise)
-font pango:Mononoki Nerd Font 10
+font pango:CommitMono Nerd Font Regular 10
 
 # colors for containers
 #                            border         bg               txt              indicator        child_border
@@ -77,48 +77,49 @@ client.urgent                $alert0        $alert0          $foreground1     $b
 ## Autostart services and applications
 
 # setup for displays (ARandR)
-exec --no-startup-id ~/.screenlayout/monitor.sh
+exec --no-startup-id ~/.screenlayout/external.sh
 
-# authentification
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-
-# autostart application
+# XDG autostart for files with desktop entries
 exec --no-startup-id dex --autostart --environment i3
 
 # notifications
-exec --no-startup-id dunst
+# exec --no-startup-id dunst
 
 # wallpapers
 exec --no-startup-id ~/.fehbg &
 
 # powersavings for display
-exec --no-startup-id xset s 480 dpms 600 600 600
+# exec --no-startup-id xset s 480 dpms 600 600 600
 
 ## Bar and status
 
 bar {
 
+#output VGA-2
 position top
-font pango:Mononoki Nerd Font Bold 8
+font pango:CommitMono Nerd Font Bold 6
 workspace_min_width 30
 #strip_workspace_name yes
 strip_workspace_numbers yes
-status_command SCRIPT_DIR=~/.config/i3/i3blocks/blocklets i3blocks -c ~/.config/i3/i3blocks/config
+status_command i3status
+#status_command SCRIPT_DIR=~/.config/i3/i3blocks/blocklets i3blocks -c ~/.config/i3/i3blocks/config
 padding 2 0
-#tray_padding 4
-#separator_symbol "󰇝"
+#tray_output VGA-2
+tray_padding 4
+separator_symbol "󰇝"
 
 colors {
 
 background  $background0
-statusline  $foreground0
-separator   $foreground0
+statusline  $accent1
+separator   $accent1
 
 #                  border           bg               txt
 focused_workspace  $distinct0       $distinct0       $foreground1
 inactive_workspace $background0     $background0     $foreground0
 urgent_workspace   $distinct0       $background0     $foreground0
 binding_mode       $alert0          $alert0          $foreground1
+
 }
 
 }
@@ -156,9 +157,9 @@ bindsym $mod+a mode "$mode_apps"
 
 mode "$mode_apps" {
 
-bindsym t exec xfce4-terminal, mode "default"
+bindsym t exec xterm, mode "default"
 bindsym Shift+t exec kitty, mode "default"
-bindsym f exec thunar, mode "default"
+bindsym Shift+f exec pcmanfm, mode "default"
 bindsym e exec emacs, mode "default"
 bindsym b exec firefox, mode "default"
 
@@ -167,19 +168,19 @@ bindsym Escape mode "default"
 }
 
 # power management (relies on ppd package)
-set $mode_power (s)power-saver (b)balanced (p)performance
+# set $mode_power (s)power-saver (b)balanced (p)performance
 
-bindsym $mod+Shift+p mode "$mode_power"
+# bindsym $mod+Shift+p mode "$mode_power"
 
-mode "$mode_power" {
+# mode "$mode_power" {
 
-bindsym s exec --no-startup-id powerprofilesctl set power-saver, mode "default"
-bindsym b exec --no-startup-id powerprofilesctl set balanced, mode "default"
-bindsym p exec --no-startup-id powerprofilesctl set performance, mode "default"
+# bindsym s exec --no-startup-id powerprofilesctl set power-saver, mode "default"
+# bindsym b exec --no-startup-id powerprofilesctl set balanced, mode "default"
+# bindsym p exec --no-startup-id powerprofilesctl set performance, mode "default"
 
-bindsym Escape mode "default"
+# bindsym Escape mode "default"
 
-}
+# }
 
 # system (relies on systemd)
 set $mode_system (l)lock (e)logout (s)suspend (h)hibernate (r)reboot (p)poweroff
@@ -229,14 +230,14 @@ title_align center
 for_window [all] title_window_icon padding 4
 
 # borders
-default_border pixel 2
-default_floating_border pixel 2
+default_border pixel 3
+default_floating_border pixel 3
 #smart_borders on
 
 # gaps
 gaps inner 6
 #gaps outer 5
-smart_gaps on
+#smart_gaps on
 
 ## Navigation
 
@@ -310,30 +311,36 @@ bindsym $mod+Shift+w move scratchpad
 bindsym $mod+q kill
 
 # #################
-# ##### RULES #####
+# ##### RULES ##### !!!!!Edited from here till the end!!!!!
 # #################
 
 ## workspaces and applications
 
 # bind program to workspace (using classnames which can be defined with xprop)
+assign [class="XTerm"] $ws1
 assign [class="Xfce4-terminal"] $ws1
 assign [class="kitty"] $ws1
 assign [class="Thunar"] $ws2
+assign [class="Pcmanfm"] $ws2
 assign [class="Emacs"] $ws3
 assign [class="Geany"] $ws4
 assign [class="Xed"] $ws4
 assign [class="Meld"] $ws5
 assign [class="firefox"] $ws6
+assign [class="Firefox-esr"] $ws6
 
 # automatic set focus new window if it opens on another workspace than the current
+for_window [class=XTerm] focus
 for_window [class=Xfce4-terminal] focus
 for_window [class=kitty] focus
 for_window [class=Thunar] focus
+for_window [class=Pcmanfm] focus
 for_window [class=Emacs] focus
 for_window [class=Geany] focus
 for_window [class=Xed] focus
 for_window [class=Meld] focus
 for_window [class=firefox] focus
+for_window [class=Firefox-esr] focus
 
 ## floating rules
 
@@ -352,20 +359,10 @@ for_window [window_role="About"] floating enable
 # ##### SHORTCUTS #####
 # #####################
 
-## Prompt (rofi)
-
-# window switcher
-bindsym $mod+Shift+Return exec rofi -show window \
-		-config ~/.config/rofi/rofidmenu.rasi
+## Prompt (dmenu)
 
 # applauncher
-bindsym $mod+Return exec rofi -modi drun -show drun \
-		-config ~/.config/rofi/rofidmenu.rasi
-
-## Scripts
-
-# keybinding in fancy rofi (interactive, automated)
-#bindsym F11 exec ~/.config/i3/scripts/keyhint-2
+bindsym $mod+Return exec --no-startup-id i3-dmenu-desktop
 
 # #####################
 # ##### Todo list #####
@@ -380,4 +377,11 @@ bindsym $mod+Return exec rofi -modi drun -show drun \
 # - also i3lock status should be somehow written to memory or the system would wake up without lock enabled
 # 2) xss-lock
 # 3) xset
+
+## Consider adding window switcher
+
+## Add useful settings from default configuration file
+
+## Add emergency screen layout switcher
+
 
