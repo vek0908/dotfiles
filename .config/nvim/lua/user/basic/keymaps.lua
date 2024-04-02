@@ -28,9 +28,6 @@ keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 
--- Explorer (NvimTree)
-keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-
 -- Visual mode
 
 -- Make indent mode remain after the first input

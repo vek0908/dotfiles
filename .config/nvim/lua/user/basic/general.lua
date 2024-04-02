@@ -1,12 +1,12 @@
 -- Disabling netrw (for nvim-tree plugin)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+--vim.g.loaded_netrw = 1
+--vim.g.loaded_netrwPlugin = 1
 
 -- Colors (NOTE: Make sure that terminal supports it)
 vim.o.termguicolors = true
 
 -- Mode below statusline plugins
-vim.o.showmode = false
+--vim.o.showmode = false
 
 -- Line highlights and numbers
 vim.o.cursorline = true

@@ -1,6 +1,8 @@
 -- General settings module
-require("user.general")
+require("user.basic.general")
+
 -- Keymap module
-require("user.keymaps")
+require("user.basic.keymaps")
+
 -- Package management module
-require("user.plugins")
+require("user.basic.lazy")

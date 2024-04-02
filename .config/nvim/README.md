@@ -9,9 +9,12 @@ It contains only some basic settings and a few of my favourite plugins, so it ca
 
 - neovim >= 0.7.2
 - terminal emulator with the extended support for colors
+- nerd fonts for glyphs
 
 # Plugins
 
-- packer.nvim
+- bufferline
 - lualine.nvim
 - catppuccin colorscheme
+- gitsigns
+- web icons
